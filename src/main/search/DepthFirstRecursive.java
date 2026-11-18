@@ -19,7 +19,7 @@ public final class DepthFirstRecursive {
   }
 
   // Marks v as visited, then visits each of its neighbors not yet visited.
-  private static <V> void visit(Graph<V> graph, V v, Set<V> visited) {
+  private static <V> void search(Graph<V> graph, V v, Set<V> visited) {
     // TODO: Implement me
     throw new UnsupportedOperationException("TODO: Implement me");
   }
