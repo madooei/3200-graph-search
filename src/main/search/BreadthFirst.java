@@ -16,22 +16,7 @@ public final class BreadthFirst {
   // Returns the set of vertices reachable from start, including start.
   // Assumes graph is not null and start is a vertex of graph.
   public static <V> Set<V> breadthFirst(Graph<V> graph, V start) {
-    Set<V> visited = new HashSet<>();
-    Queue<V> toVisit = new LinkedQueue<>();
-
-    visited.add(start);
-    toVisit.enqueue(start);
-
-    while (!toVisit.isEmpty()) {
-      V v = toVisit.front();
-      toVisit.dequeue();
-      for (V neighbor : graph.neighbors(v)) {
-        if (!visited.contains(neighbor)) {
-          visited.add(neighbor);
-          toVisit.enqueue(neighbor);
-        }
-      }
-    }
-    return visited;
+    // TODO: Implement me
+    throw new UnsupportedOperationException("TODO: Implement me");
   }
 }
