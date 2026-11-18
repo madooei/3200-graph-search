@@ -9,6 +9,8 @@ import queue.LinkedQueue;
 import queue.Queue;
 import set.HashSet;
 import set.Set;
+import stack.ArrayStack;
+import stack.Stack;
 
 /** Recovering a path with the fewest edges, from a breadth-first search. */
 public final class ShortestPath {
@@ -51,22 +53,19 @@ public final class ShortestPath {
       return path;  // target unreachable: no path
     }
 
+    Stack<V> stack = new ArrayStack<>();
     V step = target;
-    path.add(step);
+    stack.push(step);
     while (!step.equals(start)) {
       step = predecessor.get(step);
-      path.add(step);
+      stack.push(step);
     }
-    reverse(path);
+
+    while (!stack.isEmpty()) {
+      path.add(stack.top());
+      stack.pop();
+    }
     return path;
   }
 
-  // Reverses the order of the elements of list, in place.
-  private static <V> void reverse(List<V> list) {
-    for (int i = 0, j = list.size() - 1; i < j; i++, j--) {
-      V temp = list.get(i);
-      list.set(i, list.get(j));
-      list.set(j, temp);
-    }
-  }
 }
