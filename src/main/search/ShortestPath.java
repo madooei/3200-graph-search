@@ -9,6 +9,8 @@ import queue.LinkedQueue;
 import queue.Queue;
 import set.HashSet;
 import set.Set;
+import stack.ArrayStack;
+import stack.Stack;
 
 /** Recovering a path with the fewest edges, from a breadth-first search. */
 public final class ShortestPath {
@@ -33,9 +35,4 @@ public final class ShortestPath {
     throw new UnsupportedOperationException("TODO: Implement me");
   }
 
-  // Reverses the order of the elements of list, in place.
-  private static <V> void reverse(List<V> list) {
-    // TODO: Implement me
-    throw new UnsupportedOperationException("TODO: Implement me");
-  }
 }
