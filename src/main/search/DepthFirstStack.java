@@ -17,18 +17,18 @@ public final class DepthFirstStack {
   // Assumes graph is not null and start is a vertex of graph.
   public static <V> Set<V> depthFirst(Graph<V> graph, V start) {
     Set<V> visited = new HashSet<>();
-    Stack<V> toVisit = new ArrayStack<>();
+    Stack<V> toProcess = new ArrayStack<>();
 
     visited.add(start);
-    toVisit.push(start);
+    toProcess.push(start);
 
-    while (!toVisit.isEmpty()) {
-      V v = toVisit.top();
-      toVisit.pop();
+    while (!toProcess.isEmpty()) {
+      V v = toProcess.top();
+      toProcess.pop();
       for (V neighbor : graph.neighbors(v)) {
         if (!visited.contains(neighbor)) {
           visited.add(neighbor);
-          toVisit.push(neighbor);
+          toProcess.push(neighbor);
         }
       }
     }

@@ -15,16 +15,16 @@ public final class DepthFirstRecursive {
   // Assumes graph is not null and start is a vertex of graph.
   public static <V> Set<V> depthFirst(Graph<V> graph, V start) {
     Set<V> visited = new HashSet<>();
-    visit(graph, start, visited);
+    search(graph, start, visited);
     return visited;
   }
 
   // Marks v as visited, then visits each of its neighbors not yet visited.
-  private static <V> void visit(Graph<V> graph, V v, Set<V> visited) {
+  private static <V> void search(Graph<V> graph, V v, Set<V> visited) {
     visited.add(v);
     for (V neighbor : graph.neighbors(v)) {
       if (!visited.contains(neighbor)) {
-        visit(graph, neighbor, visited);
+        search(graph, neighbor, visited);
       }
     }
   }

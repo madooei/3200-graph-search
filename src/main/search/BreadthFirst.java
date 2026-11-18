@@ -17,18 +17,18 @@ public final class BreadthFirst {
   // Assumes graph is not null and start is a vertex of graph.
   public static <V> Set<V> breadthFirst(Graph<V> graph, V start) {
     Set<V> visited = new HashSet<>();
-    Queue<V> toVisit = new LinkedQueue<>();
+    Queue<V> toProcess = new LinkedQueue<>();
 
     visited.add(start);
-    toVisit.enqueue(start);
+    toProcess.enqueue(start);
 
-    while (!toVisit.isEmpty()) {
-      V v = toVisit.front();
-      toVisit.dequeue();
+    while (!toProcess.isEmpty()) {
+      V v = toProcess.front();
+      toProcess.dequeue();
       for (V neighbor : graph.neighbors(v)) {
         if (!visited.contains(neighbor)) {
           visited.add(neighbor);
-          toVisit.enqueue(neighbor);
+          toProcess.enqueue(neighbor);
         }
       }
     }

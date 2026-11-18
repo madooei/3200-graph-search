@@ -23,19 +23,19 @@ public final class ShortestPath {
   public static <V> Map<V, V> predecessors(Graph<V> graph, V start) {
     Set<V> visited = new HashSet<>();
     Map<V, V> predecessor = new HashMap<>();
-    Queue<V> toVisit = new LinkedQueue<>();
+    Queue<V> toProcess = new LinkedQueue<>();
 
     visited.add(start);
-    toVisit.enqueue(start);
+    toProcess.enqueue(start);
 
-    while (!toVisit.isEmpty()) {
-      V v = toVisit.front();
-      toVisit.dequeue();
+    while (!toProcess.isEmpty()) {
+      V v = toProcess.front();
+      toProcess.dequeue();
       for (V neighbor : graph.neighbors(v)) {
         if (!visited.contains(neighbor)) {
           visited.add(neighbor);
           predecessor.put(neighbor, v);  // reached neighbor from v
-          toVisit.enqueue(neighbor);
+          toProcess.enqueue(neighbor);
         }
       }
     }

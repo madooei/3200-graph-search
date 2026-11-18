@@ -30,16 +30,16 @@ public final class Components {
 
   // Adds to visited every vertex reachable from start that is not already in it.
   private static <V> void markReachable(Graph<V> graph, V start, Set<V> visited) {
-    Stack<V> toVisit = new ArrayStack<>();
+    Stack<V> toProcess = new ArrayStack<>();
     visited.add(start);
-    toVisit.push(start);
-    while (!toVisit.isEmpty()) {
-      V v = toVisit.top();
-      toVisit.pop();
+    toProcess.push(start);
+    while (!toProcess.isEmpty()) {
+      V v = toProcess.top();
+      toProcess.pop();
       for (V neighbor : graph.neighbors(v)) {
         if (!visited.contains(neighbor)) {
           visited.add(neighbor);
-          toVisit.push(neighbor);
+          toProcess.push(neighbor);
         }
       }
     }
