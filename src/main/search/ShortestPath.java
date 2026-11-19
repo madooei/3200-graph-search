@@ -35,4 +35,13 @@ public final class ShortestPath {
     throw new UnsupportedOperationException("TODO: Implement me");
   }
 
+  // Returns the path from start to target, from a breadth-first search that
+  // stops as soon as target comes out of the queue. Returns an empty list if
+  // target is not reachable from start. Assumes graph is not null and start
+  // and target are vertices of graph.
+  public static <V> List<V> findPath(Graph<V> graph, V start, V target) {
+    // TODO: Implement me
+    throw new UnsupportedOperationException("TODO: Implement me");
+  }
+
 }
