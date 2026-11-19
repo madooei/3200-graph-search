@@ -68,4 +68,33 @@ public final class ShortestPath {
     return path;
   }
 
+  // Returns the path from start to target, from a breadth-first search that
+  // stops as soon as target comes out of the queue. Returns an empty list if
+  // target is not reachable from start. Assumes graph is not null and start
+  // and target are vertices of graph.
+  public static <V> List<V> findPath(Graph<V> graph, V start, V target) {
+    Set<V> visited = new HashSet<>();
+    Map<V, V> predecessor = new HashMap<>();
+    Queue<V> toProcess = new LinkedQueue<>();
+
+    visited.add(start);
+    toProcess.enqueue(start);
+
+    while (!toProcess.isEmpty()) {
+      V v = toProcess.front();
+      toProcess.dequeue();
+      if (v.equals(target)) {
+        return pathTo(predecessor, start, target);
+      }
+      for (V neighbor : graph.neighbors(v)) {
+        if (!visited.contains(neighbor)) {
+          visited.add(neighbor);
+          predecessor.put(neighbor, v);
+          toProcess.enqueue(neighbor);
+        }
+      }
+    }
+    return new ArrayList<>();  // the queue emptied before the target came out
+  }
+
 }

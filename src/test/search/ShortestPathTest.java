@@ -119,6 +119,55 @@ public class ShortestPathTest {
     assertEquals(0, path.size());
   }
 
+  @Test
+  public void findPathToTheStartIsJustTheStart() {
+    List<Integer> path = ShortestPath.findPath(diamond(), 0, 0);
+    assertEquals(1, path.size());
+    assertEquals(0, path.get(0));
+  }
+
+  @Test
+  public void findPathListsTheVerticesInOrder() {
+    List<Integer> path = ShortestPath.findPath(lineWithLoneVertex(), 0, 3);
+    assertEquals(4, path.size());
+    for (int i = 0; i < 4; i++) {
+      assertEquals(i, path.get(i));
+    }
+  }
+
+  @Test
+  public void findPathTakesTheShorterBranch() {
+    assertEquals(3, ShortestPath.findPath(crossedBranches(), 0, 5).size());
+    assertEquals(3, ShortestPath.findPath(crossedBranches(), 0, 6).size());
+  }
+
+  @Test
+  public void findPathToAnUnreachableVertexIsEmpty() {
+    List<Integer> path = ShortestPath.findPath(lineWithLoneVertex(), 0, 4);
+    assertEquals(0, path.size());
+  }
+
+  @Test
+  public void findPathStopsWhenTheTargetComesOut() {
+    // In the line 0 -> 1 -> 2 -> 3, a search for 1 must not process 2.
+    java.util.List<Integer> processed = new java.util.ArrayList<>();
+    Graph<Integer> graph = new AdjacencyListGraph<>() {
+      @Override
+      public Iterable<Integer> neighbors(Integer vertex) {
+        processed.add(vertex);
+        return super.neighbors(vertex);
+      }
+    };
+    for (int v = 0; v < 4; v++) {
+      graph.addVertex(v);
+    }
+    graph.addEdge(0, 1);
+    graph.addEdge(1, 2);
+    graph.addEdge(2, 3);
+    ShortestPath.findPath(graph, 0, 1);
+    assertEquals(java.util.List.of(0), processed);
+  }
+
   // The directed diamond 0 -> 1, 0 -> 2, 1 -> 3, 2 -> 3.
   private Graph<Integer> diamond() {
     Graph<Integer> graph = vertices(4);
