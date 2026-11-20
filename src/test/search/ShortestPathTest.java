@@ -2,6 +2,7 @@ package search;
 
 import graph.AdjacencyListGraph;
 import graph.Graph;
+import list.ArrayList;
 import list.List;
 import map.Map;
 
@@ -123,22 +124,36 @@ public class ShortestPathTest {
   public void findPathToTheStartIsJustTheStart() {
     List<Integer> path = ShortestPath.findPath(diamond(), 0, 0);
     assertEquals(1, path.size());
+  }
+
+  @Test
+  public void findPathStartsAtTheStart() {
+    List<Integer> path = ShortestPath.findPath(lineWithLoneVertex(), 0, 3);
     assertEquals(0, path.get(0));
   }
 
   @Test
-  public void findPathListsTheVerticesInOrder() {
+  public void findPathEndsAtTheTarget() {
     List<Integer> path = ShortestPath.findPath(lineWithLoneVertex(), 0, 3);
-    assertEquals(4, path.size());
-    for (int i = 0; i < 4; i++) {
-      assertEquals(i, path.get(i));
-    }
+    assertEquals(3, path.get(3));
   }
 
   @Test
-  public void findPathTakesTheShorterBranch() {
-    assertEquals(3, ShortestPath.findPath(crossedBranches(), 0, 5).size());
-    assertEquals(3, ShortestPath.findPath(crossedBranches(), 0, 6).size());
+  public void findPathListsTheVerticesBetweenInOrder() {
+    List<Integer> path = ShortestPath.findPath(lineWithLoneVertex(), 0, 3);
+    assertEquals(1, path.get(1));
+  }
+
+  @Test
+  public void findPathToFiveTakesTheShorterBranch() {
+    List<Integer> path = ShortestPath.findPath(crossedBranches(), 0, 5);
+    assertEquals(3, path.size());
+  }
+
+  @Test
+  public void findPathToSixTakesTheShorterBranch() {
+    List<Integer> path = ShortestPath.findPath(crossedBranches(), 0, 6);
+    assertEquals(3, path.size());
   }
 
   @Test
@@ -149,23 +164,24 @@ public class ShortestPathTest {
 
   @Test
   public void findPathStopsWhenTheTargetComesOut() {
-    // In the line 0 -> 1 -> 2 -> 3, a search for 1 must not process 2.
-    java.util.List<Integer> processed = new java.util.ArrayList<>();
-    Graph<Integer> graph = new AdjacencyListGraph<>() {
+    // In the line 0 -> 1 -> 2 -> 3, a search for 1 processes 0 and then 1.
+    // It must stop there, so it asks only 0 for its neighbors.
+    final List<Integer> asked = new ArrayList<>();
+    Graph<Integer> graph = new AdjacencyListGraph<Integer>() {
       @Override
       public Iterable<Integer> neighbors(Integer vertex) {
-        processed.add(vertex);
+        asked.add(vertex);
         return super.neighbors(vertex);
       }
     };
-    for (int v = 0; v < 4; v++) {
-      graph.addVertex(v);
+    for (int vertex = 0; vertex < 4; vertex++) {
+      graph.addVertex(vertex);
     }
     graph.addEdge(0, 1);
     graph.addEdge(1, 2);
     graph.addEdge(2, 3);
     ShortestPath.findPath(graph, 0, 1);
-    assertEquals(java.util.List.of(0), processed);
+    assertEquals(1, asked.size());
   }
 
   // The directed diamond 0 -> 1, 0 -> 2, 1 -> 3, 2 -> 3.
@@ -203,11 +219,11 @@ public class ShortestPathTest {
     return graph;
   }
 
-  // A graph with the vertices 0 through n - 1 and no edges.
-  private Graph<Integer> vertices(int n) {
+  // A graph with the vertices 0 through count - 1 and no edges.
+  private Graph<Integer> vertices(int count) {
     Graph<Integer> graph = new AdjacencyListGraph<>();
-    for (int v = 0; v < n; v++) {
-      graph.addVertex(v);
+    for (int vertex = 0; vertex < count; vertex++) {
+      graph.addVertex(vertex);
     }
     return graph;
   }

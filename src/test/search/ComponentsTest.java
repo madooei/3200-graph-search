@@ -52,11 +52,11 @@ public class ComponentsTest {
     assertEquals(4, Components.countComponents(graph));
   }
 
-  // A graph with the vertices 0 through n - 1 and no edges.
-  private Graph<Integer> vertices(int n) {
+  // A graph with the vertices 0 through count - 1 and no edges.
+  private Graph<Integer> vertices(int count) {
     Graph<Integer> graph = new AdjacencyListGraph<>();
-    for (int v = 0; v < n; v++) {
-      graph.addVertex(v);
+    for (int vertex = 0; vertex < count; vertex++) {
+      graph.addVertex(vertex);
     }
     return graph;
   }
