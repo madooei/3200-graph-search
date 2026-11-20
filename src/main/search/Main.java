@@ -33,8 +33,8 @@ public final class Main {
   // The chapter's example: seven vertices, 0 through 6, all reachable from 0.
   private static Graph<Integer> buildExampleGraph() {
     Graph<Integer> graph = new AdjacencyListGraph<>();
-    for (int v = 0; v <= 6; v++) {
-      graph.addVertex(v);
+    for (int vertex = 0; vertex <= 6; vertex++) {
+      graph.addVertex(vertex);
     }
     addUndirected(graph, 0, 1);
     addUndirected(graph, 0, 2);

@@ -68,10 +68,9 @@ public final class ShortestPath {
     return path;
   }
 
-  // Returns the path from start to target, from a breadth-first search that
-  // stops as soon as target comes out of the queue. Returns an empty list if
-  // target is not reachable from start. Assumes graph is not null and start
-  // and target are vertices of graph.
+  // Returns a path with the fewest edges from start to target, or an empty
+  // list if target is not reachable from start. Assumes graph is not null and
+  // start and target are vertices of graph.
   public static <V> List<V> findPath(Graph<V> graph, V start, V target) {
     Set<V> visited = new HashSet<>();
     Map<V, V> predecessor = new HashMap<>();
@@ -96,5 +95,4 @@ public final class ShortestPath {
     }
     return new ArrayList<>();  // the queue emptied before the target came out
   }
-
 }
